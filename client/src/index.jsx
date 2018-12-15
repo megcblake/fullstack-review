@@ -13,6 +13,21 @@ class App extends React.Component {
     this.search = this.search.bind(this);
   }
 
+  componentDidMount() {
+    fetch('/repos')
+      .then(response => {
+        return response.json()
+      })
+      .then(
+        (result) => {
+          this.setState({repos: result})
+        }
+      )
+      .then(myJson => {
+        console.log(this.state.repos)
+      })
+  }
+
   search (term) {
     console.log(`${term} was searched`);
     // TODO

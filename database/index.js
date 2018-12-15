@@ -25,4 +25,14 @@ let save = (repos, callback) => {
   Repo.insertMany(repos, callback);
 }
 
-module.exports.save = save;
+let retrieve = (callback) => {
+  Repo.find()
+      .sort({forks: -1})
+      .limit(25)
+      .find(callback)
+}
+
+module.exports = {
+  save,
+  retrieve
+};
