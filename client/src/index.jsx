@@ -11,9 +11,10 @@ class App extends React.Component {
       repos: []
     }
     this.search = this.search.bind(this);
+    this.retrieveRepos = this.retrieveRepos.bind(this);
   }
 
-  componentDidMount() {
+  retrieveRepos() {
     fetch('/repos')
       .then(response => {
         return response.json()
@@ -26,6 +27,10 @@ class App extends React.Component {
       .then(myJson => {
         console.log(this.state.repos)
       })
+  }
+
+  componentDidMount() {
+    this.retrieveRepos()
   }
 
   search (term) {
@@ -41,8 +46,8 @@ class App extends React.Component {
       .then(response => {
         return response.json()
       })
-      .then(myJson => {
-        console.log('Success!', myJson)
+      .then((result) => {
+        this.retrieveRepos()
       })
   }
 
