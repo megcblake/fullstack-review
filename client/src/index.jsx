@@ -19,7 +19,7 @@ class App extends React.Component {
     fetch('/repos', {
       method: 'POST', 
       headers: {
-        "Content-Type": "application/json; charset=utf-8",
+        "Content-Type": "application/json; charset=utf-8"
       },
       body: JSON.stringify({term})
     })

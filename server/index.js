@@ -2,6 +2,8 @@ const express = require('express');
 let app = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
+var helpers = require('./../helpers/github.js');
+var db = require('./../database/index.js');
 
 app.use(bodyParser());
 
@@ -21,7 +23,31 @@ app.use(express.static(__dirname + '/../client/dist'));
 //   // This route should send back the top 25 repos
 // });
 
-app.post('/repos', (req, res) => res.send(JSON.stringify('Hello World!')))
+app.post('/repos', (req, res) => {
+	var user = req.body.term;
+	helpers.getReposByUsername(user, (err, result, body) => {
+    var info = JSON.parse(body);
+    var data = info.map(repo => {
+    	return {
+		    id: repo.id,
+		    name: repo.name,
+		    user: {
+		      name: repo.owner.login,
+		      id: repo.owner.id,
+		    },
+		    link: repo.html_url,
+		    forks: repo.forks_count
+		  }
+    });
+    db.save(data, (err) => {
+    	if (err) {
+    		res.send(404).end();
+    	} else {
+    		res.send(JSON.stringify(data));
+    	}
+    });
+	});
+});
 
 let port = 1128;
 
