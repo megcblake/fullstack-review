@@ -1,19 +1,27 @@
 const express = require('express');
 let app = express();
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
+
+app.use(bodyParser());
+
+app.use(morgan('tiny'));
 
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.post('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
-});
+// app.post('/repos', function (req, res) {
+//   // TODO - your code here!
+//   // This route should take the github username provided
+//   // and get the repo information from the github API, then
+//   // save the repo information in the database
+// });
 
-app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
-});
+// app.get('/repos', function (req, res) {
+//   // TODO - your code here!
+//   // This route should send back the top 25 repos
+// });
+
+app.post('/repos', (req, res) => res.send(JSON.stringify('Hello World!')))
 
 let port = 1128;
 
