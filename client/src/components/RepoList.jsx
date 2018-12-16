@@ -8,6 +8,14 @@ const RepoList = (props) => (
 	    There are {props.repos.length} repos.
 	  </div>
 	  <table>
+	  	<thead>
+	  		<tr>
+		  		<th><b>Repo ID</b></th>
+		  		<th><b>Repo Name</b></th>
+		  		<th><b>Username</b></th>
+		  		<th><b>Forks Count</b></th>
+	  		</tr>
+	  	</thead>
 	  	<tbody>
 			  {props.repos.map(repo => (
 			  	<RepoListEntry repo={repo} key={repo.id} />
